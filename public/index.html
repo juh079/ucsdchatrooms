@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Socket.io</title>
+		<link rel="stylesheet" href="./css/bootstrap.min.css">
+		<link rel="stylesheet" href="./css/styles.css">
+		<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-98383900-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	</head>
+	<body>
+		<div class="vertical-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-md-offset-4 well">
+						<h1 class="text-center">Join Chat</h1>
+						<form action="/chat.html">
+							<div class="form-group">			
+								<label>Display Name</label>
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-user"></i>
+									</span>
+									<input type="text" name="name" class="form-control"/>
+								</div>							
+							</div>
+							<div class="form-group">
+								<label>Room Name</label>
+								<div class="input-group">
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-home"></i>
+									</span>
+									<input value="york 2622" readonly="readonly" type="text" name="room" class="form-control"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="submit" value="Join Chat" class="btn btn-primary btn-block"/>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
