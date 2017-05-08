@@ -73,22 +73,13 @@ io.on('connection', function (socket) {
 	socket.on('joinRoom', function (req) {
 		clientInfo[socket.id] = req;
 		socket.join(req.room);
-		let newestFifteen = []; //the messages to be displayed to the user
-		// return up to first 15 newest messages
-		/*models.Message.find({}).sort({"_id": 1}).exec()
+		models.Message.find({}).sort({"_id": 1}).exec()
 			.then(function(allMessages){
-				if(allMessages.length < 15){
-					for (let i = 0; i > allMessages.length; i++){
-						newestFifteen.append(allMessages)
-					}
-				}
-				else {
-					let newestFifteen = [];
-					for(let i = allMessages.length - 15; i > allMessages.length; i++){
-						newestFifteen.append(allMessages[i]);
-					}
-				}
-		});*/
+				socket.emit('allmessages', {
+					messages: allMessages,
+				});
+		});
+	
 		socket.broadcast.to(req.room).emit('message', {
 			name: 'System',
 			text: req.name + ' has joined',
@@ -103,13 +94,12 @@ io.on('connection', function (socket) {
 			sendCurrentUsers(socket);	
 		}
 		else {
-			message.timestamp = moment().valueOf();
 			
 			// save the message to the database
 			models.Message({
 				Sender: message.name,
 				Content: message.text,
-				Time: message.timestamp,
+				Time: message.time,
 			}).save();
 
 			io.to(clientInfo[socket.id].room).emit('message', message);

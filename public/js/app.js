@@ -14,6 +14,19 @@ socket.on('connect', function () {
 	});
 });
 
+socket.on('allmessages', function(allmessages){
+	console.log(allmessages);
+	for(let i = 0; i < allmessages["messages"].length; i++){
+		var $messages = jQuery('.messages');
+		var $message = jQuery('<li class="list-group-item"></li>');
+
+		$message.append('<p><strong>' + allmessages["messages"][i].Sender + ' ' + 
+		allmessages["messages"][i].Time + '</strong></p>');
+		$message.append('<p>' + allmessages["messages"][i].Content + '</p>');
+		$messages.append($message);
+	}
+});
+
 socket.on('message', function (message) {
 	var momentTimestamp = moment.utc(message.timestamp);
 	var $messages = jQuery('.messages');
@@ -34,11 +47,12 @@ $form.on('submit', function (event) {
 	event.preventDefault();
 
 	var $message = $form.find('input[name=message]');
-	
+	var momentTimestamp = moment.utc($message.val().timestamp);
 	if($message.val()){
 		socket.emit('message', {
 			name: name,
-			text: $message.val()
+			text: $message.val(),
+			time: momentTimestamp.local().format('h:mm a')
 		});
 
 		$message.val('');
