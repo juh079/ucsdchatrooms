@@ -24,7 +24,8 @@ socket.on('allmessages', function(allmessages){
 		allmessages["messages"][i].Time + '</strong></p>');
 		$message.append('<p>' + allmessages["messages"][i].Content + '</p>');
 		$messages.append($message);
-	}
+	} 
+	jQuery('.message-input-form').scrollTop(jQuery('.message-input-form').scrollHeight);
 });
 
 socket.on('message', function (message) {
@@ -38,9 +39,6 @@ socket.on('message', function (message) {
 	$message.append('<p><strong>' + message.name + ' ' + momentTimestamp.local().format('h:mm a') + '</strong></p>');
 	$message.append('<p>' + message.text + '</p>');
 	$messages.append($message);
-
-	//put this outside of the loop fam. hopefully it works. 
-	$messages.scrollTop($messages[0].scrollHeight);
 });
 
 // Handle submitting of new message
