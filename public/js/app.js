@@ -25,7 +25,7 @@ socket.on('allmessages', function(allmessages){
 		$message.append('<p>' + allmessages["messages"][i].Content + '</p>');
 		$messages.append($message);
 	} 
-	jQuery('.message-input-form').scrollTop(jQuery('.message-input-form').scrollHeight);
+	$(document).scrollTop($(document).height());
 });
 
 socket.on('message', function (message) {
@@ -56,6 +56,14 @@ $form.on('submit', function (event) {
 			time: momentTimestamp.local().format('h:mm a')
 		});
 
+		var momentTimestamp = moment.utc($message.val().timestamp);
+		var $messages = jQuery('.messages');
+		var $messageToAppend = jQuery('<li class="list-group-item"></li>');
+		$messageToAppend.append('<p><strong>' + name + ' ' + momentTimestamp.local().format('h:mm a') + '</strong></p>');
+		$messageToAppend.append('<p>' + $message.val() + '</p>');
+		$messages.append($messageToAppend);
+
 		$message.val('');
+		$(document).scrollTop($(document).height());
 	}
 });

@@ -102,8 +102,8 @@ io.on('connection', function (socket) {
 				Time: message.time,
 			}).save();
 
-			io.to(clientInfo[socket.id].room).emit('message', message);
-			//socket.broadcast.emit('message', message);
+			//io.to(clientInfo[socket.id].room).emit('message', message);
+			socket.broadcast.emit('message', message);
 		}
 	});
 
