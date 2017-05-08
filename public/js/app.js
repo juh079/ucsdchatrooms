@@ -34,10 +34,13 @@ $form.on('submit', function (event) {
 	event.preventDefault();
 
 	var $message = $form.find('input[name=message]');
-	socket.emit('message', {
-		name: name,
-		text: $message.val()
-	});
+	
+	if($message.val()){
+		socket.emit('message', {
+			name: name,
+			text: $message.val()
+		});
 
-	$message.val('');
+		$message.val('');
+	}
 });
