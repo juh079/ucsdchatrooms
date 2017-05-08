@@ -38,6 +38,9 @@ socket.on('message', function (message) {
 	$message.append('<p><strong>' + message.name + ' ' + momentTimestamp.local().format('h:mm a') + '</strong></p>');
 	$message.append('<p>' + message.text + '</p>');
 	$messages.append($message);
+
+	//put this outside of the loop fam. hopefully it works. 
+	$messages.scrollTop($messages[0].scrollHeight);
 });
 
 // Handle submitting of new message
