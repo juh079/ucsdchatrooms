@@ -49,10 +49,16 @@ $form.on('submit', function (event) {
 
 	var $message = $form.find('input[name=message]');
 	var momentTimestamp = moment.utc($message.val().timestamp);
+	var cleanText;
 	if($message.val()){
+		if(!$message.val().trim()){
+			return;
+		}
+		cleanText = $message.val().replace(/<[^>]*>/g, "");
+		cleanText2 = cleanText.trim();
 		socket.emit('message', {
 			name: name,
-			text: $message.val(),
+			text: cleanText2,
 			time: momentTimestamp.local().format('h:mm a')
 		});
 
@@ -60,7 +66,7 @@ $form.on('submit', function (event) {
 		var $messages = jQuery('.messages');
 		var $messageToAppend = jQuery('<li class="list-group-item"></li>');
 		$messageToAppend.append('<p><strong>' + name + ' ' + momentTimestamp.local().format('h:mm a') + '</strong></p>');
-		$messageToAppend.append('<p>' + $message.val() + '</p>');
+		$messageToAppend.append('<p>' + cleanText2 + '</p>');
 		$messages.append($messageToAppend);
 
 		$message.val('');
