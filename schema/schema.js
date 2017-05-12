@@ -13,6 +13,7 @@ module.exports.Promise = Promise;
 module.exports.Message = mongoose.model('Message', new Schema({
   Sender: String,
   Content: String,
+  Room: String,
   Time: String,
 },{collection: 'Messages'}));
 
