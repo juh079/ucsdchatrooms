@@ -73,7 +73,7 @@ io.on('connection', function (socket) {
 	socket.on('joinRoom', function (req) {
 		clientInfo[socket.id] = req;
 		socket.join(req.room);
-		models.Message.find({}).sort({"_id": 1}).exec()
+		models.Message.find({Room: req.room}).sort({"_id": 1}).exec()
 			.then(function(allMessages){
 				socket.emit('allmessages', {
 					messages: allMessages,
@@ -100,6 +100,7 @@ io.on('connection', function (socket) {
 				Sender: message.name,
 				Content: message.text,
 				Time: message.time,
+				Room: message.room
 			}).save();
 
 			//io.to(clientInfo[socket.id].room).emit('message', message);
