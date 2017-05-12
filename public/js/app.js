@@ -59,7 +59,8 @@ $form.on('submit', function (event) {
 		socket.emit('message', {
 			name: name,
 			text: cleanText2,
-			time: momentTimestamp.local().format('h:mm a')
+			time: momentTimestamp.local().format('h:mm a'),
+			room: room
 		});
 
 		var momentTimestamp = moment.utc($message.val().timestamp);
